@@ -456,7 +456,7 @@ use Req\Taxonomies\Conference;
 			$posts_array[$key]->{'paid'} = $custom['paid'][0];
 			$posts_array[$key]->{'remaining'} = $custom['remaining'][0];
 			$totalPaid +=  $custom['paid'][0];
-			$totalRemaining = $custom['remaining'][0];
+			$totalRemaining += $custom['remaining'][0];
 		}
 
 
