@@ -10,6 +10,9 @@ jQuery(document).ready(function($){
 	TotalAdults = (!$('#no_of_adults').val()) ? 0  : $('#no_of_adults').val() ;
 	TotalChilds = (!$('#no_of_childs').val()) ? 0  : $('#no_of_childs').val() ;
 
+    TotalPayableChilds = 0;         //Childs between 5 and 11
+    TotalPayableYouth = 0;         //Number of youth who will pay in full.
+
 console.log(TotalDue);
    $.ajaxSetup({cache:false});
 
@@ -117,17 +120,24 @@ console.log(TotalDue);
     });
 
     //Update the prices on change of number of childs
-    $(document).on('change' , '#no_of_childs'  , function(){
-    	TotalChilds = parseInt($('#no_of_childs').val());
-    	CalculateTotalPrice();
+    $(document).on('change' , '#age_between_5_and_11'  , function(){
+        TotalPayableChilds = parseInt($('#age_between_5_and_11').val());
+        CalculateTotalPrice();
+    });
+
+
+
+    $(document).on('change' , '#Young_youth'  , function(){
+        TotalPayableYouth = parseInt($('#Young_youth').val());
+        CalculateTotalPrice();
     });
 
 
 
 
     function CalculateTotalPrice(){
-    	TotalAdultsPrice = parseInt(AdultPrice) * parseInt(TotalAdults);
-    	TotalChildPrice =  parseInt(ChildPrice) * parseInt(TotalChilds);
+    	TotalAdultsPrice = parseInt(AdultPrice) * ( parseInt(TotalAdults) + parseInt(TotalPayableYouth) ) ;
+    	TotalChildPrice =  parseInt(ChildPrice) * parseInt(TotalPayableChilds);
 
     	TotalDue = TotalAdultsPrice + TotalChildPrice;
 		TotalPaid = 0;
@@ -142,20 +152,6 @@ console.log(TotalDue);
 
 		$('#paid').val(TotalPaid);
     	$('#remaining').val(TotalRemaining);
-
-   //  	if(!$('#paid').val() && !$('#remaining').val()){
-   //  		$('#paid').val(TotalPaid);
-   //  		$('#remaining').val(TotalDue);
-   //  	}else if(!$('#paid').val()){
-			// CalculatedPaid = TotalDue - parseInt($('#remaining').val());
-			// $('#paid').val(CalculatedPaid);
-   //  	}else{
-   //  		CalculatedRemaining = TotalDue - parseInt($('#paid').val());
-			// $('#remaining').val(CalculatedRemaining);
-   //  	}
-
-    	//Update the TotalPaid field
-    	//Update the TotalRemaining field
 
     	return  TotalDue;
     }
