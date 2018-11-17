@@ -33,7 +33,7 @@ class ConfirmationEmail  extends BaseController{
 
 
 		$headers = array('Content-Type: text/html; charset=UTF-8');
-		$headers[]= “From: YourName <first email>”;	//Replace this one with a real email
+		$headers[]= "From: YourName <first email>";	//Replace this one with a real email
 
 
 
@@ -49,3 +49,4 @@ class ConfirmationEmail  extends BaseController{
 		  }
 	}
 }
+

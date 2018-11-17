@@ -33,6 +33,10 @@ namespace Req\Taxonomies;
  			
  			add_action( 'conferences_edit_form_fields', array ( $this, 'update_conference_tax' ), 10, 2 );
    			add_action( 'edited_conferences', array ( $this, 'updated_conference_tax' ), 10, 2 );
+
+   			//Putting the Custom Taxonomy right after the Title 
+		add_action('add_meta_boxes_conference_booking' , array($this , 'rearrange_meta_boxes'));
+
  	}
 
 
@@ -192,4 +196,26 @@ namespace Req\Taxonomies;
 	 	return $terms;
 	 }
 
+
+	 	public function rearrange_meta_boxes(){
+		global $wp_meta_boxes;
+    	
+
+
+
+// Miriam
+
+
+
+
+
+
+
+
+
+    	$confdiv = $wp_meta_boxes['conference_booking']['side']['core']['conferencesdiv'];
+    	unset($wp_meta_boxes['conference_booking']['side']['core']['conferencesdiv']);
+	    $wp_meta_boxes['conference_booking']['normal']['core'] = array('conferencesdiv' => $confdiv) + $wp_meta_boxes['conference_booking']['normal']['core'];
+
+	}
  }

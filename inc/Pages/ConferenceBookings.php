@@ -11,17 +11,19 @@
 namespace Req\Pages;
 
 use Req\Taxonomies\Conference;
+use Req\Api\Callbacks\InputCallBacks;
 
  class ConferenceBookings{
 
 
  	public $roomTypes = array();
  	public $taxonomy = '';
-
+ 	public $InputCallBacks = '';
 
 	function register(){
 
 		$this->taxonomy = new Conference();
+		$this->InputCallBacks = new InputCallBacks();
 
 		//Create the Custom Post Type
 		add_action( 'init', array($this , 'register_CPT_ConferenceBookings') );
@@ -37,7 +39,7 @@ use Req\Taxonomies\Conference;
 		add_action('manage_conference_booking_posts_custom_column' , array( $this , 'set_custom_columns_data') , 10 , 2 );
 
 		add_filter('manage_edit-conference_booking_sortable_columns' , array($this , 'custom_sortable_columns'));
-
+		
 	}
 
 	 
@@ -89,7 +91,7 @@ use Req\Taxonomies\Conference;
 
 	function no_of_adults_metaboxes( ) {
    		global $wp_meta_boxes;
-   		add_meta_box('general_information_div', __('General Information'), array($this , 'all_information_html') , 'conference_booking', 'normal', 'high');
+   		add_meta_box('general_information_div', __('General Information'), array($this , 'all_information_html') , 'conference_booking', 'normal', 'low');
 	}
 
 
@@ -129,87 +131,59 @@ use Req\Taxonomies\Conference;
 		}
 
 
-	    
-	?>
 
-		<div class="question">
-			<label for="no_of_adults">Number of Adults:</label>
-			<br />
-			<select name="no_of_adults" id="no_of_adults">
-				<?php for($i = 1 ; $i <=5; $i++):
-					print '<option value="'. $i .'" ';
-						print ($i == $number_ad) ? 'selected' : '' ;
-					print '>'. $i .'</option>';
-				endfor; ?>
-			</select>
-		</div>
-	
 
-		<div class="question">
-			<label for="no_of_childs">Number of Childs:</label>
-			<br />
-			<select name="no_of_childs" id="no_of_childs">
-				<?php for($i = 0 ; $i <=5; $i++):
-					print '<option value="'. $i .'" ';
-						print ($i == $number_ch) ? 'selected' : '' ;
-					print '>'. $i .'</option>';
-				endfor; ?>
-			</select>	
-		</div>
-		
-		<div class="dependable-question" data-dependont="no_of_childs">
-			<label for="age_between_0_and_4"># of Children between 0 and 4</label>
-			<br />
-			<select name="age_between_0_and_4" id="age_between_0_and_4">
-				<?php for($i = 0 ; $i <=5; $i++):
-					print '<option value="'. $i .'" ';
-						print ($i == $bt_0_4) ? 'selected' : '' ;
-					print '>' .$i .'</option>';
-				endfor; ?>
-			</select>	
-		</div>
 
-		<div class="dependable-question" data-dependont="no_of_childs">
-			<label for="age_between_5_and_11"># of Children between 5 and 11</label>
-			<br />
-			<select name="age_between_5_and_11" id="age_between_5_and_11">
-				<?php for($i = 0 ; $i <=5; $i++):
-					print '<option value="'. $i .'" ';
-						print ($i == $bt_5_11) ? 'selected' : '' ;
-					print '>' .$i .'</option>';
-				endfor; ?>
-			</select>	
-		</div>
 
-		<div class="dependable-question" data-dependont="no_of_childs">
-			<label for="Young_youth">Young youth</label>
-			<br />
-			<select name="Young_youth" id="Young_youth">
-				<?php for($i = 0 ; $i <=5; $i++):
-					print '<option value="'. $i .'" ';
-						print ($i == $Young_youth) ? 'selected' : '' ;
-					print '>' .$i .'</option>';
-				endfor; ?>
-			</select>	
-		</div>
-		
-		<div class="dependable-question" data-dependont="no_of_childs">
-			<label for="ch_grades">Children Grades</label>
-			<br />
-			<input type="text" name="ch_grades" id="ch_grades" value="<?php print $ch_grades; ?>" />
-		</div>
-		
-		<div class="question">
-			<label for="paid">Amount Paid</label>
-			<br />
-			<input type="text" readonly="readonly" name="paid" id="paid" value="<?php print $paid; ?>" />
-		</div>
-		
-		<div class="question">
-			<label for="remaining">Amount Remaining</label>
-			<br />
-			<input type="text" readonly="readonly" name="remaining" id="remaining" value="<?php print $remaining; ?>" />
-		</div>
+		//Get All Inputs 
+		$inputs = [
+			//Number of Adults
+			[ 'label' => 'Number of Adults' , 'type'=>'SelectDropDown' , 'name' => 'no_of_adults' , 'value' => $number_ad , 'class' => 'question' , 'options' => [1,2,3,4,5] ] ,
+
+			//Number of Childs
+			[ 'label' => 'Number of Childs' , 'type'=>'SelectDropDown' , 'name' => 'no_of_childs' , 'value' => $number_ch , 'class' => 'question' , 'options' => [0,1,2,3,4,5] ] ,
+
+			//Number of Childs between 0 and 4
+			[ 'label' => '# of Children between 0 and 4' , 'type'=>'SelectDropDown' , 'name' => 'age_between_0_and_4' , 'value' => $bt_0_4 , 'class' => 'dependable-question' , 'options' => [0,1,2,3,4,5] , 'dependant' =>  'no_of_childs' ] ,
+
+			//Number of Childs between 5 and 11
+			[ 'label' => '# of Children between 5 and 11' , 'type'=>'SelectDropDown' , 'name' => 'age_between_5_and_11' , 'value' => $bt_5_11 , 'class' => 'dependable-question' , 'options' => [0,1,2,3,4,5] , 'dependant' =>  'no_of_childs' ] ,
+
+			//Number of Childs between Young Youth
+			[ 'label' => 'Young youth' , 'type'=>'SelectDropDown' , 'name' => 'Young_youth' , 'value' => $Young_youth , 'class' => 'dependable-question' , 'options' => [0,1,2,3,4,5] , 'dependant' =>  'no_of_childs' ] ,
+
+			//Number of Childs between Young Youth
+			[ 'label' => 'Children Grades' , 'type'=>'TextBox' , 'name' => 'ch_grades' , 'value' =>  $ch_grades , 'class' => 'dependable-question', 'dependant' =>  'no_of_childs'] ,
+
+			//Total Paid Amount
+			[ 'label' => 'Amount Paid' , 'type'=>'TextBox' , 'name' => 'paid' , 'value' =>  $paid , 'class' => 'question', 'readonly' => true ] ,
+
+			//Total Remaining Amount
+			[ 'label' => 'Amount Remaining' , 'type'=>'TextBox' , 'name' => 'remaining' , 'value' =>  $remaining , 'class' => 'question', 'readonly' => true ] ,
+
+			//Room Type
+			[ 'label' => 'Room Type' , 'type'=>'SelectDropDown' , 'name' => 'room_type' , 'value' => $roomtype , 'class' => 'question' , 'options' => $roomTypes ] ,
+
+			//Room Numbers
+			[ 'label' => 'Room number(s)' , 'type'=>'TextBox' , 'name' => 'room_numbers' , 'value' =>  $room_numbers , 'class' => 'question' ] ,
+
+			//Email Address
+			[ 'label' => 'Email Address' , 'type'=>'TextBox' , 'name' => 'emailaddress' , 'value' =>  $emailaddress , 'class' => 'question' ] ,
+
+			//Hotel Comments
+			[ 'label' => 'Comments for the Hotel' , 'type'=>'TextArea' , 'name' => 'hotelComments' , 'value' =>  $hotelComments , 'class' => 'question' ] ,
+
+			//Extra Comments
+			[ 'label' => 'Extra Comments' , 'type'=>'TextArea' , 'name' => 'extraComments' , 'value' =>  $extraComments , 'class' => 'question' ] ,
+
+			
+
+		];
+		foreach ($inputs as $input):
+			$func = $input['type'];
+			echo $this->InputCallBacks->$func($input);
+		endforeach;
+	?>	
 
 		<table id="paymentInformation">
 			<thead>
@@ -238,10 +212,22 @@ use Req\Taxonomies\Conference;
 					?>
 				<tr>
 					<td>
-						<select name="payment_method[]" class="payment_method">
-							<option <?php echo ($payment_method == 'Check') ? 'selected' : '' ;?> value="Check">Check</option>
-							<option <?php echo ($payment_method == 'Cash') ? 'selected' : '' ;?> value="Cash">Cash</option>
-						</select>
+						
+						<?php 
+
+						echo $this->InputCallBacks->SelectDropDown([ 
+							'label' => 'Room Type' , 
+							'type'=>'SelectDropDown' , 
+							'name' => 'payment_method[]' , 
+							'value' => '' , 
+							'class' => 'question' , 
+							'options' => ['Cash' , 'Check'] ]);
+
+						?>
+
+
+
+						
 					</td>
 					<td>
 						<input type="text" class="paid_amount" value="0" name="payment_amount[]" />
@@ -265,7 +251,7 @@ use Req\Taxonomies\Conference;
 				<tr>
 					<td>
 						<select name="payment_method[]" class="payment_method">
-							<option <?php echo ($payment_method[$key] == 'Check') ? 'selected' : '' ;?> value="Check">Check</option>
+							<option <?php echo ($payment_method == 'Check') ? 'selected' : '' ;?> value="Check">Check</option>
 							<option <?php echo ($payment_method[$key] == 'Cash') ? 'selected' : '' ;?> value="Cash">Cash</option>
 						</select>
 					</td>
@@ -290,47 +276,6 @@ use Req\Taxonomies\Conference;
 				endif; ?>
 			</tbody>
 		</table>
-		
-		<div class="question">
-			<label for="room_type">Room Type</label><p class="description">Please Select the Conference first</p>
-			<br />
-			<input type="hidden" name="roomtype" id="roomtype" value="<?php print $roomtype; ?>">
-			<select name="room_type" id="room_type">
-				<?php if(!empty($post->ID)):
-					foreach($roomTypes as $one):
-						print '<option value="'. $one .'" ';
-							if($one == $roomtype):
-								print ' selected ';
-							endif;
-						print '>'. $one .'</option>';
-					endforeach;
-				endif; ?>
-			</select>
-		</div>	
-
-		<div class="question">
-			<label for="room_numbers">Room number(s)</label><br />
-			<input type="text" name="room_numbers" id="room_numbers" value="<?php print $room_numbers; ?>">
-			
-		</div>
-		
-		<div class="question">
-			<label  for="hotelComments">Comments for the Hotel:</label>
-			<br />
-			<textarea name="hotelComments" id="hotelComments"><?php print $hotelComments;?></textarea>
-		</div>
-		
-		<div class="question">
-			<label for="extraComments">Extra Comments:</label>
-			<br />
-			<textarea name="extraComments" id="extraComments"><?php print $extraComments;?></textarea>
-		</div>
-
-		<div class="question">
-			<label for="emailaddress">Email Address:</label>
-			<br />
-			<input type="text" name="emailaddress" id="emailaddress" value="<?php print $emailaddress; ?>">
-		</div>
 
 	<?php
 	}
@@ -361,11 +306,11 @@ use Req\Taxonomies\Conference;
    		//
 
    		update_post_meta($post->ID, "room_type", $_POST["room_type"]);
-   		update_post_meta($post->ID, "hotelComments", $_POST["hotelComments"]);
-   		update_post_meta($post->ID, "extraComments", $_POST["extraComments"]);
+   		update_post_meta($post->ID, "hotelComments", esc_attr($_POST["hotelComments"]));
+   		update_post_meta($post->ID, "extraComments", esc_attr($_POST["extraComments"]));
    		update_post_meta($post->ID, "room_numbers", $_POST["room_numbers"]);
 
-   		update_post_meta($post->ID, "emailaddress", $_POST["emailaddress"]);
+   		update_post_meta($post->ID, "emailaddress", esc_attr($_POST["emailaddress"]));
 
    		
 
@@ -480,4 +425,6 @@ use Req\Taxonomies\Conference;
 
 		 return $posts_array;
 	}
+
+
  }
