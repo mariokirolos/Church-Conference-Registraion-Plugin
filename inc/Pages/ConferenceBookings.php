@@ -117,6 +117,10 @@ use Req\Taxonomies\Conference;
 	    $hotelComments = isset($custom["hotelComments"][0])?$custom["hotelComments"][0]:'';
 		$extraComments = isset($custom["extraComments"][0])?$custom["extraComments"][0]:'';
 		$roomtype = isset($custom["room_type"][0])?$custom["room_type"][0]:'';
+		
+		$emailaddress = isset($custom["emailaddress"][0])?$custom["emailaddress"][0]:'';
+
+
 
 		//If the Post is not new get the room types from the conference
 		if('publish' == get_post_status ( $post->ID )){
@@ -322,6 +326,12 @@ use Req\Taxonomies\Conference;
 			<textarea name="extraComments" id="extraComments"><?php print $extraComments;?></textarea>
 		</div>
 
+		<div class="question">
+			<label for="emailaddress">Email Address:</label>
+			<br />
+			<input type="text" name="emailaddress" id="emailaddress" value="<?php print $emailaddress; ?>">
+		</div>
+
 	<?php
 	}
 
@@ -354,6 +364,10 @@ use Req\Taxonomies\Conference;
    		update_post_meta($post->ID, "hotelComments", $_POST["hotelComments"]);
    		update_post_meta($post->ID, "extraComments", $_POST["extraComments"]);
    		update_post_meta($post->ID, "room_numbers", $_POST["room_numbers"]);
+
+   		update_post_meta($post->ID, "emailaddress", $_POST["emailaddress"]);
+
+   		
 
 
 	}

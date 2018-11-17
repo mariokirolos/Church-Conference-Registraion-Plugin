@@ -26,6 +26,7 @@ class Init{
 			Taxonomies\Conference::class,
 			Api\Ajax::class,
 			Api\Export::class,
+			Pages\ConfirmationEmail::class,
 		);
 	}
 
