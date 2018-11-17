@@ -32,6 +32,8 @@ class ConfirmationEmail  extends BaseController{
 		$message = require_once("$this->plugin_path/templates/confirmationEmail.php");
 
 
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$headers[]= “From: YourName <first email>”;	//Replace this one with a real email
 
 
 
@@ -42,7 +44,7 @@ class ConfirmationEmail  extends BaseController{
 		  else
 		  {
 		  	if (filter_var($to, FILTER_VALIDATE_EMAIL)) {
-		  		wp_mail( $to, 'Confirmation Email',   $message );
+		  		wp_mail( $to, 'Confirmation Email',   $message, $headers );
 		  	}
 		  }
 	}
