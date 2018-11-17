@@ -1,0 +1,13 @@
+.question , .dependable-question{
+	input , select , textarea {
+		width:350px;
+	}
+
+	textarea{
+		height:200px;
+	}	
+}
+
+.dependable-question{
+	display: none;
+}

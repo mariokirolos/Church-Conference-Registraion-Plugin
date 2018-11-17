@@ -1,0 +1,50 @@
+#registraionTable  , #paymentInformation {
+	width:100%;
+
+	thead{
+		background:#777777;
+		color:#FFF;
+		padding:3px;
+		
+		th{
+			border:0px;
+		}
+
+	}
+
+	tbody{
+		tr{
+			td{
+				text-align: center;
+
+				input , select{
+					width:100%;
+				}
+			}
+		}
+
+		tr:nth-child(even) {background: #CCC}
+
+		tr:hover{
+			background:#999;
+			color:#FFF;
+			cursor:pointer;
+		}
+	}
+}
+
+
+.exportBTN{
+	margin-top:20px;
+	background:darkblue;
+	color:#FFF;
+	padding:5px 10px;
+	border-radius:5px;
+	outline:none;
+	border:none;
+	cursor:pointer;
+
+	&:active{
+		background:#42dff4;
+	}
+}

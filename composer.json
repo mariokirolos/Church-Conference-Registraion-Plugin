@@ -1,0 +1,16 @@
+{
+    "name": "admin/registration-form",
+    "description": "This is a plugin that creates the registration form and all it's requirements for the church all events",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mario Kirolos",
+            "email": "contact@mariofayek.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4":{"Req\\": "./inc"}
+    }
+}

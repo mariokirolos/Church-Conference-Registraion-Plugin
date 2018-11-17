@@ -1,0 +1,52 @@
+#registraionTable, #paymentInformation {
+  width: 100%;
+}
+#registraionTable thead, #paymentInformation thead {
+  background: #777777;
+  color: #FFF;
+  padding: 3px;
+}
+#registraionTable thead th, #paymentInformation thead th {
+  border: 0px;
+}
+#registraionTable tbody tr td, #paymentInformation tbody tr td {
+  text-align: center;
+}
+#registraionTable tbody tr td input, #registraionTable tbody tr td select, #paymentInformation tbody tr td input, #paymentInformation tbody tr td select {
+  width: 100%;
+}
+#registraionTable tbody tr:nth-child(even), #paymentInformation tbody tr:nth-child(even) {
+  background: #CCC;
+}
+#registraionTable tbody tr:hover, #paymentInformation tbody tr:hover {
+  background: #999;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.exportBTN {
+  margin-top: 20px;
+  background: darkblue;
+  color: #FFF;
+  padding: 5px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.exportBTN:active {
+  background: #42dff4;
+}
+
+.question input, .question select, .question textarea, .dependable-question input, .dependable-question select, .dependable-question textarea {
+  width: 350px;
+}
+.question textarea, .dependable-question textarea {
+  height: 200px;
+}
+
+.dependable-question {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */
