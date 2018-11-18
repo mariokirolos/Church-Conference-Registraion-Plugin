@@ -352,7 +352,7 @@ use Req\Api\Callbacks\InputCallBacks;
 
 
 
-		$columns['title'] = $title;
+		$columns['name'] = 'Names' ;
 		$columns['paid'] = 'Amount Paid';
 		$columns['remaining'] = 'Amount Left';
 		$columns['room_type'] = 'Room Type';
@@ -392,6 +392,10 @@ use Req\Api\Callbacks\InputCallBacks;
 		$roomtype = isset($custom["room_type"][0])?$custom["room_type"][0]:'';
 
 		switch($column){
+			case 'name':
+			$hotelComments = (!empty($hotelComments))? $hotelComments :'<i>No Additional Comments</i>';
+				echo edit_post_link(get_the_title() , '<strong>' , '</strong>') .'<br />'. $hotelComments;
+			break;
 			case 'paid':
 				echo $paid;
 			break;
