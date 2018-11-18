@@ -50,11 +50,13 @@ namespace Req\Api\Callbacks;
  		$return =  '<div class="'. $args['class'] .'" data-dependont="'. $dependant .'">';
 			$return .= (!empty($args['label'])) ? '<label for="'. $args['name'] .'">'. $args['label'] .':</label><br />' : '' ;
 			$return .= '<select name="'. $args['name'] .'" class="'. $input_class .'" id="'. $args['name'] .'">' ;
-			foreach($args['options'] as $option):
-				$return .=  '<option value="'. $option .'" ';
-				$return .=	($option == $args['value']) ? 'selected' : '' ;
-				$return .= '>'. $option .'</option>';
-			endforeach;
+			if(!empty($args['options'])):
+				foreach($args['options'] as $option):
+					$return .=  '<option value="'. $option .'" ';
+					$return .=	($option == $args['value']) ? 'selected' : '' ;
+					$return .= '>'. $option .'</option>';
+				endforeach;
+			endif;
 		$return .= '</select>
 		</div>';
 

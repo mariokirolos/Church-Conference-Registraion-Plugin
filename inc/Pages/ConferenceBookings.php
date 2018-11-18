@@ -353,8 +353,8 @@ use Req\Api\Callbacks\InputCallBacks;
 
 
 		$columns['title'] = $title;
-		$columns['paid'] = 'Paid';
-		$columns['remaining'] = 'Remaining';
+		$columns['paid'] = 'Amount Paid';
+		$columns['remaining'] = 'Amount Left';
 		$columns['room_type'] = 'Room Type';
 		$columns['date'] = $date;
 

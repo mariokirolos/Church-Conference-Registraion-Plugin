@@ -173,6 +173,9 @@ namespace Req\Taxonomies;
 
 	 public function getTaxonomyID($postid){
 	 	$conf = wp_get_post_terms( $postid , 'conferences' ) ;
+	 	if(empty($conf))
+	 		return false;
+	 	
 	 	return $conf[0]->term_id;
 	 }
 
