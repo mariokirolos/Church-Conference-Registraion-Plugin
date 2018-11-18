@@ -40,3 +40,14 @@ register_deactivation_hook( __FILE__, 'RegistrationFormDeactivate' );
 if( class_exists('Req\\Init') ){
 	Req\Init::register_services();
 }
+
+
+
+//Check for the Updates.
+if(file_exists( dirname( __FILE__ ) . '/inc/Vendor/UpdateChecker/plugin-update-checker.php')){
+	require_once( dirname( __FILE__ ) . '/inc/Vendor/UpdateChecker/plugin-update-checker.php');
+	$ExampleUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'http://w-shadow.com/files/external-update-example/info.json',
+		__FILE__
+	);
+}

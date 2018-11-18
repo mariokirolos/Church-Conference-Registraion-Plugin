@@ -27,6 +27,7 @@ class Init{
 			Api\Ajax::class,
 			Api\Export::class,
 			Pages\ConfirmationEmail::class,
+			Pages\FrontEnd::class,
 		);
 	}
 

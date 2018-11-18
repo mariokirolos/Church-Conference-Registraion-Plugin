@@ -23,12 +23,13 @@ namespace Req\Api\Callbacks;
 
  		$dependant = (isset($args['dependant']))? $args['dependant'] : '';
 
+ 		$input_class = (isset($args['input_class']))? $args['input_class'] : '';
  		
 
  		$return = '<div class="'. $args['class'] .'" data-dependont="'. $dependant .'">';
 
  		$return .= (!empty($args['label'])) ? '<label for="'. $args['name'] .'">'. $args['label'] .':</label><br />' : '' ;
-		$return .= '<input type="text" name="'. $args['name'] .'" id="'. $args['name'] .'" value="'. $args['value'] .'" '. $readonly .' />
+		$return .= '<input type="text" name="'. $args['name'] .'" class="'. $input_class .'" id="'. $args['name'] .'" value="'. $args['value'] .'" '. $readonly .' />
 		</div>';
 
 		return $return;
@@ -44,10 +45,11 @@ namespace Req\Api\Callbacks;
 
  	public function SelectDropDown($args){
  		$dependant = (isset($args['dependant']))? $args['dependant'] : '';
+ 		$input_class = (isset($args['input_class']))? $args['input_class'] : '';
 
  		$return =  '<div class="'. $args['class'] .'" data-dependont="'. $dependant .'">';
 			$return .= (!empty($args['label'])) ? '<label for="'. $args['name'] .'">'. $args['label'] .':</label><br />' : '' ;
-			$return .= '<select name="'. $args['name'] .'" id="'. $args['name'] .'">' ;
+			$return .= '<select name="'. $args['name'] .'" class="'. $input_class .'" id="'. $args['name'] .'">' ;
 			foreach($args['options'] as $option):
 				$return .=  '<option value="'. $option .'" ';
 				$return .=	($option == $args['value']) ? 'selected' : '' ;

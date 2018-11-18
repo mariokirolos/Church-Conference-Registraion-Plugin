@@ -122,6 +122,7 @@ use Req\Api\Callbacks\InputCallBacks;
 		
 		$emailaddress = isset($custom["emailaddress"][0])?$custom["emailaddress"][0]:'';
 
+		$roomTypes = [];
 
 
 		//If the Post is not new get the room types from the conference
@@ -212,31 +213,53 @@ use Req\Api\Callbacks\InputCallBacks;
 					?>
 				<tr>
 					<td>
-						
 						<?php 
 
 						echo $this->InputCallBacks->SelectDropDown([ 
-							'label' => 'Room Type' , 
-							'type'=>'SelectDropDown' , 
 							'name' => 'payment_method[]' , 
 							'value' => '' , 
 							'class' => 'question' , 
+							'input_class'	=> 'payment_method',
 							'options' => ['Cash' , 'Check'] ]);
 
 						?>
+					</td>
+					<td>
+						<?php 
 
+						echo $this->InputCallBacks->TextBox([ 
+							'name' => 'payment_amount[]' , 
+							'value' => '0' , 
+							'class' => 'question' , 
+							'input_class'	=> 'paid_amount'
+						]);
 
-
+						?>
 						
 					</td>
 					<td>
-						<input type="text" class="paid_amount" value="0" name="payment_amount[]" />
+						<?php 
+
+						echo $this->InputCallBacks->TextBox([ 
+							'name' => 'check_numbers[]' , 
+							'value' => '' , 
+							'class' => 'question' , 
+							'input_class'	=> 'checknumbers hidden'
+						]);
+
+						?>
 					</td>
 					<td>
-						<input type="text" name="check_numbers[]" class="checknumbers" value="<?php print $check_numbers; ?>" />
-					</td>
-					<td>
-						<input type="text" class="datepicker" name="payment_date[]" value="<?php  print date('m/d/Y');?>" />
+						<?php 
+
+						echo $this->InputCallBacks->TextBox([ 
+							'name' => 'payment_date[]' , 
+							'value' => date('m/d/Y') , 
+							'class' => 'question' , 
+							'input_class'	=> 'datepicker'
+						]);
+
+						?>
 					</td>
 					<td>
 						&nbsp;
@@ -263,7 +286,7 @@ use Req\Api\Callbacks\InputCallBacks;
 						
 					</td>
 					<td>
-						<input type="text" class="datepicker" name="payment_date[]" value="<?php  print $payment_date[$key]; ?>" />
+						<input type="text" class="datepicker" autocomplete="off"  name="payment_date[]" value="<?php  print $payment_date[$key]; ?>" />
 					</td>
 					<td>
 						<?php  if($key > 0 ): ?>

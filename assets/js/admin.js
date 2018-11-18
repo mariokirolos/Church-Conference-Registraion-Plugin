@@ -95,7 +95,7 @@ console.log(TotalDue);
     
 
     $(document).on('click' , '#AddPaymentRow' , function(){
-    	$('#paymentTableBody').append('<tr><td><select name="payment_method[]" class="payment_method"><option value="Check">Check</option><option value="Cash">Cash</option></select></td><td><input type="text" class="paid_amount" name="payment_amount[]" /></td><td><input type="text" name="check_numbers[]" class="checknumbers" value="" /></td><td><input type="text" class="datepicker" name="payment_date[]" /></td><td><button type="button" class="removeRowBTN">Remove</button></td></tr>');
+    	$('#paymentTableBody').append('<tr><td><select name="payment_method[]" class="payment_method"><option value="Check">Check</option><option value="Cash">Cash</option></select></td><td><input type="text" class="paid_amount" name="payment_amount[]" /></td><td><input type="text" name="check_numbers[]" class="checknumbers" value="" /></td><td><input type="text" class="datepicker" name="payment_date[]" autocomplete="off" /></td><td><button type="button" class="removeRowBTN">Remove</button></td></tr>');
     });
 
     $(document).on('click' , '.removeRowBTN' , function(){
