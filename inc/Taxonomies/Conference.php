@@ -19,7 +19,7 @@ namespace Req\Taxonomies;
  	function register(){
 
 		
- 			$this->roomTypes = array('King' , 'DBL' , 'Suite');
+ 			$this->roomTypes = array('King' , 'DBL' , 'Suite' , 'SGL' , 'Matchup' , 'Church Coverage');
 
  			//Creating Custom Taxonomy
  			add_action( 'init', array($this , 'create_conferences_taxonomies' ) );
@@ -94,6 +94,16 @@ namespace Req\Taxonomies;
      <input type="text" id="child-price" name="conference_meta[child_price]"   />
    </div>
 
+ 	<div class="form-field term-group">
+     <label for="sgl-price"><?php _e('Single Price', 'sgl-price'); ?></label>
+     <input type="text" id="sgl-price" name="conference_meta[sgl_price]"   />
+   </div>
+
+ 	<div class="form-field term-group">
+     <label for="suite-price"><?php _e('Suite Price', 'suite-price'); ?></label>
+     <input type="text" id="suite-price" name="conference_meta[suite_price]"   />
+   </div>
+
 	<div class="form-field term-group">
      <label for="room-types"><?php _e('Available room types', 'available-room-types'); ?></label>
 		<?php 
@@ -132,6 +142,22 @@ namespace Req\Taxonomies;
 	     </th>
 	     <td>
 	      <input type="text" id="child-price" name="conference_meta[child_price]" value="<?php print $conference_meta['child_price']; ?>"  />
+	     </td>
+	   </tr>
+	   <tr class="form-field term-group-wrap">
+	     <th scope="row">
+	       <label for="sgl-price"><?php _e( 'SGL Price', 'sgl-price' ); ?></label>
+	     </th>
+	     <td>
+	      <input type="text" id="sgl-price" name="conference_meta[sgl_price]" value="<?php print $conference_meta['sgl_price']; ?>"  />
+	     </td>
+	   </tr>
+	   <tr class="form-field term-group-wrap">
+	     <th scope="row">
+	       <label for="suite-price"><?php _e( 'Suite Price', 'suite-price' ); ?></label>
+	     </th>
+	     <td>
+	      <input type="text" id="suite-price" name="conference_meta[suite_price]" value="<?php print $conference_meta['suite_price']; ?>"  />
 	     </td>
 	   </tr>
 
