@@ -29,6 +29,13 @@
 				<td>$<?php print $conferences[$i]['totalRemaining'];?></td>
 				<td>
 
+				
+				<form action="" method="GET">
+					<input type="hidden" name="export_pending_rooms" value="<?php print $conferences[$i]['term_taxonomy_id'];?>" />
+					<input type="submit" value="Pending Rooms" />
+				</form>
+
+
 				<form action="" method="GET">
 					<input type="hidden" name="export_conference" value="<?php print $conferences[$i]['term_taxonomy_id'];?>" />
 					<input type="submit" value="Export CSV" />

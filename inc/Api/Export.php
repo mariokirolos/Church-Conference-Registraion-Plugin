@@ -174,6 +174,74 @@ class Export {
             }
         }
 
+        if(isset($_GET['export_pending_rooms'])){
+             //Do certain conference
+            $arg = array(
+                    'post_type' => 'conference_booking',
+                    'post_status' => 'draft',
+                    'posts_per_page' => -1,
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'conferences',
+                            'field' => 'term_id',
+                            'terms' => $_GET['export_pending_rooms'],
+                        )
+                    )
+                );
+     
+            global $post;
+            $arr_post = get_posts($arg);
+            if ($arr_post) {
+     
+                header('Content-type: text/csv');
+                header('Content-Disposition: attachment; filename="pending_'. $name .'"');
+                header('Pragma: no-cache');
+                header('Expires: 0');
+     
+                $file = fopen('php://output', 'w');
+     
+                fputcsv($file, 
+                    array(
+                        'Names', 
+                        'No of Adults',
+                        'No of Childs',
+                        'Childs 0 to 4',
+                        'Childs 5 to 11',
+                        'Young youth',
+                        'Children grade',
+                        'Total Paid',
+                        'Total Remaining',
+                        'Room Type',
+                        'Hotel Comments',
+                        'Extra Comments',
+                        'Room Number'
+                    )
+                );
+     
+                foreach ($arr_post as $post) {
+                    $meta = get_post_meta($post->ID);
+                     fputcsv($file, array(
+                         get_the_title(), 
+                         $meta['no_of_adults'][0],
+                         $meta['no_of_childs'][0],
+                         $meta['age_between_0_and_4'][0],
+                         $meta['age_between_5_and_11'][0],
+                         $meta['Young_youth'][0],
+                         $meta['ch_grades'][0],
+                         $meta['paid'][0],
+                         $meta['remaining'][0],
+                         $meta['room_type'][0],
+                         $meta['hotelComments'][0],
+                         $meta['extraComments'][0],
+                         $meta['room_numbers'][0]
+                    ));
+                }
+     
+                exit();
+            }
+        }
+
+
         if(isset($_GET['total_conferences_report'])){
             //Export the total report
             $dashboard = new Dashboard();

@@ -394,7 +394,13 @@ use Req\Api\Callbacks\InputCallBacks;
 		switch($column){
 			case 'name':
 			$hotelComments = (!empty($hotelComments))? $hotelComments :'<i>No Additional Comments</i>';
+
+			if(current_user_can('edit_post' , $postid ))
 				echo edit_post_link(get_the_title() , '<strong>' , '</strong>') .'<br />'. $hotelComments;
+			else
+				echo '<strong>' . get_the_title() .'</strong>'  .'<br />'. $hotelComments;
+
+				
 			break;
 			case 'paid':
 				echo $paid;
